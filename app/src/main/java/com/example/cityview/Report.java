@@ -9,14 +9,16 @@ public class Report {
     private String status;
     private final String createdAt;
     private final String reporterName;
+    private final String category; // ✅ NEW
 
     public Report(int id,
-                  String description,
-                  String location,
-                  String imagePath,
-                  String status,
-                  String createdAt,
-                  String reporterName) {
+            String description,
+            String location,
+            String imagePath,
+            String status,
+            String createdAt,
+            String reporterName,
+            String category) { // ✅ NEW param
 
         this.id = id;
         this.description = description;
@@ -25,6 +27,7 @@ public class Report {
         this.status = status;
         this.createdAt = createdAt;
         this.reporterName = reporterName;
+        this.category = (category == null || category.isEmpty()) ? "General" : category;
     }
 
     public int getId() {
@@ -54,6 +57,10 @@ public class Report {
     public String getReporterName() {
         return reporterName;
     }
+
+    public String getCategory() {
+        return category;
+    } // ✅ NEW getter
 
     public void setStatus(String status) {
         this.status = status;

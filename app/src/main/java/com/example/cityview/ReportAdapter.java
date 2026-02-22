@@ -57,7 +57,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         Report report = reportList.get(position);
 
         holder.textTitle.setText(report.getDescription());
-        holder.textCategory.setText("Infrastructure");
+        holder.textCategory.setText(report.getCategory());   // ✅ was hardcoded "Infrastructure"
         holder.textDate.setText(report.getCreatedAt());
         holder.textPriority.setText("High");
 

@@ -30,14 +30,13 @@ import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private TextInputEditText editTextFullName, editTextEmail, editTextPassword, editTextVerificationCode;
+    private TextInputEditText editTextFullName, editTextEmail, editTextPassword, editTextVerificationCode,
+            editTextPhone, editTextAddress;
     private RadioGroup radioGroupUserType;
     private RadioButton radioButtonCitizen, radioButtonOfficial;
     private TextInputLayout textInputLayoutVerificationCode;
     private Button buttonSignUp;
     private TextView textViewSignIn;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,8 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextVerificationCode = findViewById(R.id.editTextVerificationCode);
+        editTextPhone = findViewById(R.id.editTextPhone);
+        editTextAddress = findViewById(R.id.editTextAddress);
         radioGroupUserType = findViewById(R.id.radioGroupUserType);
         radioButtonCitizen = findViewById(R.id.radioButtonCitizen);
         radioButtonOfficial = findViewById(R.id.radioButtonOfficial);
@@ -86,6 +87,8 @@ public class RegistrationActivity extends AppCompatActivity {
         final String fullName = editTextFullName.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
+        final String phone = editTextPhone.getText().toString().trim();
+        final String address = editTextAddress.getText().toString().trim();
         final String verificationCode = editTextVerificationCode.getText().toString().trim();
 
         int selectedId = radioGroupUserType.getCheckedRadioButtonId();
@@ -123,6 +126,18 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
+        if (phone.isEmpty()) {
+            editTextPhone.setError("Phone number is required");
+            editTextPhone.requestFocus();
+            return;
+        }
+
+        if (address.isEmpty()) {
+            editTextAddress.setError("Address is required");
+            editTextAddress.requestFocus();
+            return;
+        }
+
         if (userType.equals("Official") && verificationCode.isEmpty()) {
             editTextVerificationCode.setError("Verification code is required for officials");
             editTextVerificationCode.requestFocus();
@@ -151,14 +166,16 @@ public class RegistrationActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(RegistrationActivity.this, "JSON Parsing Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistrationActivity.this, "JSON Parsing Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegistrationActivity.this, "Registration Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistrationActivity.this, "Registration Error: " + error.toString(),
+                                Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -167,6 +184,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 params.put("full_name", fullName);
                 params.put("email", email);
                 params.put("password", password);
+                params.put("phone_number", phone);
+                params.put("address", address);
                 params.put("user_type", userType);
                 if (userType.equals("Official")) {
                     params.put("verification_code", verificationCode);

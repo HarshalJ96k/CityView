@@ -36,9 +36,10 @@ public class ProfileActivity extends AppCompatActivity {
     private CircleImageView profileImageView;
     private ImageView imageEditProfile;
 
-    private String currentPhone, currentAddress, currentImageUrl;
+    private String currentPhone = "", currentAddress = "", currentImageUrl = "";
 
-    // Use the modern ActivityResultLauncher to get the result from EditProfileActivity
+    // Use the modern ActivityResultLauncher to get the result from
+    // EditProfileActivity
     private final ActivityResultLauncher<Intent> editProfileResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -46,7 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
                     // This block runs if the user saved changes in EditProfileActivity.
                     // We refresh the profile data to show the latest updates.
                     fetchUserDetails();
-                    // We also set our own result to OK, so the Dashboard can update the nav header if needed.
+                    // We also set our own result to OK, so the Dashboard can update the nav header
+                    // if needed.
                     setResult(RESULT_OK);
                 }
             });
@@ -59,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_profile);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("My Profile");
+            getSupportActionBar().setTitle(""); // Title is handled by MaterialToolbar XML
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -78,7 +80,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Set an OnClickListener for the edit icon
         imageEditProfile.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-            // Pass the currently displayed data to the edit screen so it can pre-fill the fields
+            // Pass the currently displayed data to the edit screen so it can pre-fill the
+            // fields
             intent.putExtra("fullName", headerProfileName.getText().toString());
             intent.putExtra("phone", currentPhone);
             intent.putExtra("address", currentAddress);
@@ -124,16 +127,16 @@ public class ProfileActivity extends AppCompatActivity {
                             JSONObject userObject = jsonObject.getJSONObject("user");
 
                             // Store the fetched details to pass to the Edit screen later
-                            currentPhone = userObject.optString("phone_number", "Not available");
-                            currentAddress = userObject.optString("address", "Not available");
+                            currentPhone = userObject.optString("phone_number", "");
+                            currentAddress = userObject.optString("address", "");
                             String imagePath = userObject.optString("profile_image_path", "");
 
                             // Construct the full image URL
                             currentImageUrl = imagePath.isEmpty() ? null : ApiUrls.getRootUrl() + imagePath;
 
                             // Update the UI with the fetched data
-                            textPhone.setText(currentPhone);
-                            textAddress.setText(currentAddress);
+                            textPhone.setText(currentPhone.isEmpty() ? "Not available" : currentPhone);
+                            textAddress.setText(currentAddress.isEmpty() ? "Not available" : currentAddress);
 
                             Glide.with(this)
                                     .load(currentImageUrl)
@@ -142,15 +145,18 @@ public class ProfileActivity extends AppCompatActivity {
                                     .into(profileImageView);
 
                         } else {
-                            Toast.makeText(ProfileActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(ProfileActivity.this, "Error parsing server response.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Error parsing server response.", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 },
                 error -> {
-                    Toast.makeText(ProfileActivity.this, "Network Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "Network Error: " + error.getMessage(), Toast.LENGTH_SHORT)
+                            .show();
                 }) {
             @NonNull
             @Override
@@ -175,4 +181,3 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

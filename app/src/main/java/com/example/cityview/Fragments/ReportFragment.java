@@ -10,8 +10,10 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -47,6 +49,7 @@ public class ReportFragment extends Fragment {
 
     private ImageView imagePreview;
     private TextInputEditText edtDescription, edtLocation;
+    private Spinner spinnerCategory;
     private Button btnSubmit, btnUseLocation;
     private View uploadArea;
 
@@ -58,8 +61,8 @@ public class ReportFragment extends Fragment {
 
     /* ================= PERMISSION LAUNCHERS ================= */
 
-    private final ActivityResultLauncher<String[]> permissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+    private final ActivityResultLauncher<String[]> permissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), result -> {
                 boolean granted = true;
                 for (Boolean value : result.values()) {
                     if (!value) {
@@ -67,12 +70,14 @@ public class ReportFragment extends Fragment {
                         break;
                     }
                 }
-                if (granted) openCamera();
-                else Toast.makeText(getContext(), "Camera permission required", Toast.LENGTH_SHORT).show();
+                if (granted)
+                    openCamera();
+                else
+                    Toast.makeText(getContext(), "Camera permission required", Toast.LENGTH_SHORT).show();
             });
 
-    private final ActivityResultLauncher<Uri> cameraLauncher =
-            registerForActivityResult(new ActivityResultContracts.TakePicture(), success -> {
+    private final ActivityResultLauncher<Uri> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(), success -> {
                 if (success) {
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(
@@ -90,20 +95,23 @@ public class ReportFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_report, container, false);
 
         imagePreview = view.findViewById(R.id.image_preview);
         edtDescription = view.findViewById(R.id.edit_text_description);
         edtLocation = view.findViewById(R.id.edit_text_location);
+        spinnerCategory = view.findViewById(R.id.spinner_category);
         btnSubmit = view.findViewById(R.id.button_submit_report);
         btnUseLocation = view.findViewById(R.id.button_use_current_location);
         uploadArea = view.findViewById(R.id.layout_upload_photo);
 
         sessionManager = new SessionManager(getContext());
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        setupCategorySpinner();
 
         uploadArea.setOnClickListener(v -> checkPermissionsAndOpenCamera());
         btnUseLocation.setOnClickListener(v -> getCurrentLocation());
@@ -112,18 +120,44 @@ public class ReportFragment extends Fragment {
         return view;
     }
 
+    /* ================= CATEGORY SPINNER ================= */
+
+    private void setupCategorySpinner() {
+        String[] categories = {
+                "General",
+                "Road & Footpath",
+                "Water Supply",
+                "Electricity",
+                "Garbage & Sanitation",
+                "Drainage & Sewage",
+                "Public Property",
+                "Street Lighting",
+                "Parks & Gardens",
+                "Noise Pollution",
+                "Other"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        // Default is index 0 = "General" automatically
+    }
+
     /* ================= CAMERA PERMISSION (FIXED) ================= */
 
     private void checkPermissionsAndOpenCamera() {
 
         if (android.os.Build.VERSION.SDK_INT >= 33) {
             // Android 13+
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                            != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(requireContext(),
+                            Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
 
-                permissionLauncher.launch(new String[]{
+                permissionLauncher.launch(new String[] {
                         Manifest.permission.CAMERA,
                         Manifest.permission.READ_MEDIA_IMAGES
                 });
@@ -132,12 +166,12 @@ public class ReportFragment extends Fragment {
             }
         } else {
             // Android 12 and below
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(requireContext(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                permissionLauncher.launch(new String[]{
+                permissionLauncher.launch(new String[] {
                         Manifest.permission.CAMERA,
                         Manifest.permission.READ_EXTERNAL_STORAGE
                 });
@@ -152,9 +186,8 @@ public class ReportFragment extends Fragment {
             File photoFile = createImageFile();
             photoUri = FileProvider.getUriForFile(
                     requireContext(),
-                    requireActivity().getPackageName() + ".provider",
-                    photoFile
-            );
+                    "com.example.cityview.provider",
+                    photoFile);
             cameraLauncher.launch(photoUri);
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,7 +216,7 @@ public class ReportFragment extends Fragment {
                 }
             });
         } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 100);
         }
     }
 
@@ -195,6 +228,11 @@ public class ReportFragment extends Fragment {
         String location = edtLocation.getText().toString().trim();
         String userId = sessionManager.getUserId();
 
+        // Category is optional — default is "General" (index 0)
+        String category = (spinnerCategory.getSelectedItem() != null)
+                ? spinnerCategory.getSelectedItem().toString()
+                : "General";
+
         if (description.isEmpty() || location.isEmpty() || bitmap == null) {
             Toast.makeText(getContext(), "Fill all fields & capture photo", Toast.LENGTH_SHORT).show();
             return;
@@ -203,51 +241,51 @@ public class ReportFragment extends Fragment {
         btnSubmit.setEnabled(false);
         btnSubmit.setText("Submitting...");
 
-        VolleyMultipartRequest request =
-                new VolleyMultipartRequest(Request.Method.POST, ApiUrls.URL_SUBMIT_REPORT,
-                        response -> {
-                            btnSubmit.setEnabled(true);
-                            btnSubmit.setText("Submit Report");
-                            try {
-                                JSONObject obj = new JSONObject(new String(response.data));
-                                Toast.makeText(getContext(),
-                                        obj.getString("message"), Toast.LENGTH_LONG).show();
+        VolleyMultipartRequest request = new VolleyMultipartRequest(Request.Method.POST, ApiUrls.URL_SUBMIT_REPORT,
+                response -> {
+                    btnSubmit.setEnabled(true);
+                    btnSubmit.setText("Submit Report");
+                    try {
+                        JSONObject obj = new JSONObject(new String(response.data));
+                        Toast.makeText(getContext(),
+                                obj.getString("message"), Toast.LENGTH_LONG).show();
 
-                                if (obj.getString("status").equals("success")) {
-                                    edtDescription.setText("");
-                                    edtLocation.setText("");
-                                    imagePreview.setVisibility(View.GONE);
-                                    bitmap = null;
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        },
-                        error -> {
-                            btnSubmit.setEnabled(true);
-                            btnSubmit.setText("Submit Report");
-                            Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
-                        }) {
-
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("user_id", userId);
-                        map.put("description", description);
-                        map.put("location", location);
-                        return map;
+                        if (obj.getString("status").equals("success")) {
+                            edtDescription.setText("");
+                            edtLocation.setText("");
+                            imagePreview.setVisibility(View.GONE);
+                            bitmap = null;
+                            spinnerCategory.setSelection(0); // reset to "General"
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                },
+                error -> {
+                    btnSubmit.setEnabled(true);
+                    btnSubmit.setText("Submit Report");
+                    Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
+                }) {
 
-                    @Override
-                    protected Map<String, DataPart> getByteData() {
-                        Map<String, DataPart> map = new HashMap<>();
-                        map.put("image", new DataPart(
-                                System.currentTimeMillis() + ".jpg",
-                                getImageBytes(bitmap)
-                        ));
-                        return map;
-                    }
-                };
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> map = new HashMap<>();
+                map.put("user_id", userId);
+                map.put("description", description);
+                map.put("location", location);
+                map.put("category", category); // ✅ NEW: send chosen category
+                return map;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> map = new HashMap<>();
+                map.put("image", new DataPart(
+                        System.currentTimeMillis() + ".jpg",
+                        getImageBytes(bitmap)));
+                return map;
+            }
+        };
 
         Volley.newRequestQueue(requireContext()).add(request);
     }

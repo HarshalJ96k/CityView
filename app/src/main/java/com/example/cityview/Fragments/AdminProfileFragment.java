@@ -34,12 +34,13 @@ public class AdminProfileFragment extends Fragment {
     private ImageView imgProfile, btnEdit;
     private Button btnLogout;
     private SessionManager session;
+    private String currentName = "", currentPhone = "", currentCity = "", currentImageUrl = "";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_admin_profile, container, false);
 
@@ -53,8 +54,14 @@ public class AdminProfileFragment extends Fragment {
 
         session = new SessionManager(requireContext());
 
-        btnEdit.setOnClickListener(vw ->
-                startActivity(new Intent(getContext(), UpdateAdminProfileActivity.class)));
+        btnEdit.setOnClickListener(vw -> {
+            Intent intent = new Intent(getContext(), UpdateAdminProfileActivity.class);
+            intent.putExtra("fullName", currentName);
+            intent.putExtra("phone", currentPhone);
+            intent.putExtra("city", currentCity);
+            intent.putExtra("imageUrl", currentImageUrl);
+            startActivity(intent);
+        });
 
         btnLogout.setOnClickListener(vw -> {
             session.clearSession();
@@ -75,16 +82,21 @@ public class AdminProfileFragment extends Fragment {
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
-                        if (!obj.getString("status").equals("success")) return;
+                        if (!obj.getString("status").equals("success"))
+                            return;
 
                         JSONObject d = obj.getJSONObject("data");
 
-                        txtName.setText(d.optString("full_name"));
-                        txtEmail.setText(d.optString("email"));
-                        txtPhone.setText(d.optString("phone"));
-                        txtCity.setText(d.optString("city"));
-
+                        currentName = d.optString("full_name", "");
+                        currentPhone = d.optString("phone", "");
+                        currentCity = d.optString("city", "");
                         String imgPath = d.optString("profile_image_path", "");
+                        currentImageUrl = imgPath.isEmpty() ? "" : ApiUrls.getRootUrl() + imgPath;
+
+                        txtName.setText(currentName);
+                        txtEmail.setText(d.optString("email"));
+                        txtPhone.setText(currentPhone.isEmpty() ? "Not available" : currentPhone);
+                        txtCity.setText(currentCity.isEmpty() ? "Not available" : currentCity);
                         if (!imgPath.isEmpty()) {
                             Glide.with(this)
                                     .load(ApiUrls.getRootUrl() + imgPath)
@@ -94,10 +106,11 @@ public class AdminProfileFragment extends Fragment {
                             imgProfile.setImageResource(R.drawable.ic_admin);
                         }
 
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 },
-                error -> {}
-        ) {
+                error -> {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();

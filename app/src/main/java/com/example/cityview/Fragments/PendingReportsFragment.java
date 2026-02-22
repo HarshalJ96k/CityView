@@ -44,8 +44,8 @@ public class PendingReportsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_report_list, container, false);
 
@@ -62,8 +62,7 @@ public class PendingReportsFragment extends Fragment {
         adapter = new ReportAdapter(
                 getContext(),
                 reportList,
-                () -> fetchReports("Pending")
-        );
+                () -> fetchReports("Pending"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -108,8 +107,8 @@ public class PendingReportsFragment extends Fragment {
                                     r.getString("photo_urls"),
                                     r.getString("status"),
                                     r.getString("submitted_at"),
-                                    r.getString("full_name")
-                            ));
+                                    r.getString("full_name"),
+                                    r.optString("category", "General")));
                         }
 
                         if (reportList.isEmpty()) {
@@ -129,8 +128,7 @@ public class PendingReportsFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     lottieNoData.setVisibility(View.VISIBLE);
                     textNoData.setVisibility(View.VISIBLE);
-                }
-        ) {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();

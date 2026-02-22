@@ -44,8 +44,8 @@ public class OfficialDashboardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_official_dashboard, container, false);
 
@@ -65,7 +65,7 @@ public class OfficialDashboardFragment extends Fragment {
         reportAdapter = new ReportAdapter(
                 getContext(),
                 recentReportList,
-                null   // dashboard doesn't need refresh callback
+                null // dashboard doesn't need refresh callback
         );
 
         recyclerViewRecentReports.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,7 +99,8 @@ public class OfficialDashboardFragment extends Fragment {
                 null,
                 response -> {
                     try {
-                        if (!response.getString("status").equals("success")) return;
+                        if (!response.getString("status").equals("success"))
+                            return;
 
                         JSONObject data = response.getJSONObject("data");
                         textPending.setText(data.getString("pending"));
@@ -113,8 +114,7 @@ public class OfficialDashboardFragment extends Fragment {
                     }
                 },
                 error -> Toast.makeText(getContext(),
-                        "Dashboard fetch failed", Toast.LENGTH_SHORT).show()
-        );
+                        "Dashboard fetch failed", Toast.LENGTH_SHORT).show());
 
         requestQueue.add(request);
     }
@@ -127,7 +127,8 @@ public class OfficialDashboardFragment extends Fragment {
                 response -> {
                     try {
                         JSONObject json = new JSONObject(response);
-                        if (!json.getString("status").equals("success")) return;
+                        if (!json.getString("status").equals("success"))
+                            return;
 
                         JSONArray array = json.getJSONArray("data");
                         recentReportList.clear();
@@ -142,8 +143,8 @@ public class OfficialDashboardFragment extends Fragment {
                                     r.getString("photo_urls"),
                                     r.getString("status"),
                                     r.getString("submitted_at"),
-                                    r.getString("full_name")
-                            ));
+                                    r.getString("full_name"),
+                                    r.optString("category", "General")));
                         }
 
                         reportAdapter.notifyDataSetChanged();
@@ -154,8 +155,7 @@ public class OfficialDashboardFragment extends Fragment {
                     }
                 },
                 error -> Toast.makeText(getContext(),
-                        "Recent reports fetch failed", Toast.LENGTH_SHORT).show()
-        ) {
+                        "Recent reports fetch failed", Toast.LENGTH_SHORT).show()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();

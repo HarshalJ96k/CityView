@@ -41,12 +41,11 @@ public class CompletedReportsFragment extends Fragment {
     private LottieAnimationView lottieNoData;
     private TextView textNoData;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_report_list, container, false);
 
@@ -55,7 +54,6 @@ public class CompletedReportsFragment extends Fragment {
         title = view.findViewById(R.id.text_fragment_title);
         lottieNoData = view.findViewById(R.id.lottie_no_data);
         textNoData = view.findViewById(R.id.text_no_data);
- 
 
         title.setText("Completed Reports");
 
@@ -64,8 +62,7 @@ public class CompletedReportsFragment extends Fragment {
         adapter = new ReportAdapter(
                 getContext(),
                 reportList,
-                () -> fetchReports("Completed")
-        );
+                () -> fetchReports("Completed"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -80,6 +77,7 @@ public class CompletedReportsFragment extends Fragment {
         super.onResume();
         fetchReports("Completed");
     }
+
     private void fetchReports(String status) {
 
         progressBar.setVisibility(View.VISIBLE);
@@ -109,8 +107,8 @@ public class CompletedReportsFragment extends Fragment {
                                     r.getString("photo_urls"),
                                     r.getString("status"),
                                     r.getString("submitted_at"),
-                                    r.getString("full_name")
-                            ));
+                                    r.getString("full_name"),
+                                    r.optString("category", "General")));
                         }
 
                         if (reportList.isEmpty()) {
@@ -130,8 +128,7 @@ public class CompletedReportsFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     lottieNoData.setVisibility(View.VISIBLE);
                     textNoData.setVisibility(View.VISIBLE);
-                }
-        ) {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();

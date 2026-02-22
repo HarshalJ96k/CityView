@@ -9,10 +9,13 @@ import android.util.Base64;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.cityview.urls.ApiUrls;
 
 import java.io.ByteArrayOutputStream;
@@ -25,7 +28,7 @@ public class UpdateAdminProfileActivity extends AppCompatActivity {
 
     EditText edtName, edtPhone, edtCity;
     ImageView imgProfile;
-    TextView txtChangePhoto;
+    FloatingActionButton btnChangePhoto;
     Button btnUpdate;
 
     SessionManager session;
@@ -40,18 +43,41 @@ public class UpdateAdminProfileActivity extends AppCompatActivity {
         edtPhone = findViewById(R.id.edit_phone);
         edtCity = findViewById(R.id.edit_city);
         imgProfile = findViewById(R.id.img_profile);
-        txtChangePhoto = findViewById(R.id.txt_change_photo);
+        btnChangePhoto = findViewById(R.id.btn_change_photo);
         btnUpdate = findViewById(R.id.btn_update_profile);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_update_admin);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         session = new SessionManager(this);
 
-//        edtName.setText(session.getUserName());
-//        edtPhone.setText(session.getUserPhone());
+        Intent intent = getIntent();
+        edtName.setText(intent.getStringExtra("fullName"));
+        edtPhone.setText(intent.getStringExtra("phone"));
+        edtCity.setText(intent.getStringExtra("city"));
+        String imageUrl = intent.getStringExtra("imageUrl");
 
-        txtChangePhoto.setOnClickListener(v -> openGallery());
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_admin)
+                    .error(R.drawable.ic_admin)
+                    .into(imgProfile);
+        }
+
+        btnChangePhoto.setOnClickListener(v -> openGallery());
         imgProfile.setOnClickListener(v -> openGallery());
 
         btnUpdate.setOnClickListener(v -> updateProfile());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void openGallery() {
@@ -70,7 +96,8 @@ public class UpdateAdminProfileActivity extends AppCompatActivity {
                 selectedBitmap = MediaStore.Images.Media.getBitmap(
                         getContentResolver(), uri);
                 imgProfile.setImageBitmap(selectedBitmap);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -83,14 +110,12 @@ public class UpdateAdminProfileActivity extends AppCompatActivity {
                     // 🔥 UPDATE SESSION LOCALLY
                     session.updateProfile(
                             edtName.getText().toString(),
-                            edtPhone.getText().toString()
-                    );
+                            edtPhone.getText().toString());
                     Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     finish();
                 },
                 error -> Toast.makeText(this,
-                        "Update failed", Toast.LENGTH_SHORT).show()
-        ) {
+                        "Update failed", Toast.LENGTH_SHORT).show()) {
             @Override
             protected Map<String, String> getParams() {
 
