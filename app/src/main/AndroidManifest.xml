@@ -48,7 +48,7 @@
         </provider> <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDXKrtmMVOvzYhO9YDMYIdILpIThd8WW3w" /> <!-- Your Activities -->
+            android:value="<YOUR API KEY>" /> <!-- Your Activities -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
