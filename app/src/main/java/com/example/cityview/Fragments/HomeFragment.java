@@ -129,6 +129,7 @@ public class HomeFragment extends Fragment {
     }
 
     /* ---------------- LOCATION ---------------- */
+    @android.annotation.SuppressLint("MissingPermission")
     private void getCurrentLocationAndData() {
 
         progressBar.setVisibility(View.VISIBLE);

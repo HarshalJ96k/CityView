@@ -129,6 +129,7 @@ public class AiAssistantFragment extends Fragment {
     }
 
 
+    @android.annotation.SuppressLint("MissingPermission")
     private void getCurrentCity() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation()

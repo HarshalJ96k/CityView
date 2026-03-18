@@ -73,8 +73,8 @@ public class AdminProfileFragment extends Fragment {
             android.widget.Button btnCancel = dialog.findViewById(R.id.btn_cancel_logout);
             android.widget.Button btnConfirm = dialog.findViewById(R.id.btn_confirm_logout);
             
-            btnCancel.setOnClickListener(v -> dialog.dismiss());
-            btnConfirm.setOnClickListener(v -> {
+            btnCancel.setOnClickListener(view -> dialog.dismiss());
+            btnConfirm.setOnClickListener(view -> {
                 session.clearSession();
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
