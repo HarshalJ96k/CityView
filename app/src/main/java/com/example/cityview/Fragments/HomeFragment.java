@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment {
                             );
                         } else {
                             // 🔥 FALLBACK CITY
-                            String fallbackCity = "Kolhapur";
+                            String fallbackCity = "Murtizapur";
                             textViewCityName.setText(fallbackCity);
                             progressBar.setVisibility(View.GONE);
 

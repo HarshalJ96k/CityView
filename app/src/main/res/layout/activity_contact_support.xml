@@ -81,7 +81,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+91 9322162103"
+                        android:text="+91 8806611255"
                         android:textColor="@color/black"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -130,7 +130,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="prokmc29@gmail.com"
+                        android:text="purvasraut2007@gmail.com"
                         android:textColor="@color/black"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -179,7 +179,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="kolhapurcorporation.gov.in"
+                        android:text="cityview.com"
                         android:textColor="@color/black"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -228,7 +228,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Main Building, Shivaji Chowk, C-Ward, Kolhapur - 416002"
+                        android:text="Main Building, Chhatrapati Shivaji Maharaj Chowk,Murtizapur - 444107"
                         android:textColor="@color/black"
                         android:textSize="14sp"/>
                 </LinearLayout>

@@ -5,7 +5,7 @@
     <color name="colorPrimary">#0D8DE9</color>
     <color name="colorPrimaryDark">#0A79DF</color>
     <color name="colorAccent">#04D2F2</color>
-    <color name="backgroundColor">#F5F9FF</color>
+    <color name="backgroundColor">#F4F7FC</color>
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#757575</color>
     <color name="buttonGradientStart">#0D8DE9</color>

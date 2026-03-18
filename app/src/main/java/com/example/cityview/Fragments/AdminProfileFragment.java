@@ -64,10 +64,25 @@ public class AdminProfileFragment extends Fragment {
         });
 
         btnLogout.setOnClickListener(vw -> {
-            session.clearSession();
-            Intent i = new Intent(getContext(), LoginActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
+            android.app.Dialog dialog = new android.app.Dialog(requireContext());
+            dialog.setContentView(R.layout.dialog_logout_confirm);
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            }
+            
+            android.widget.Button btnCancel = dialog.findViewById(R.id.btn_cancel_logout);
+            android.widget.Button btnConfirm = dialog.findViewById(R.id.btn_confirm_logout);
+            
+            btnCancel.setOnClickListener(v -> dialog.dismiss());
+            btnConfirm.setOnClickListener(v -> {
+                session.clearSession();
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                dialog.dismiss();
+            });
+            
+            dialog.show();
         });
 
         loadProfile();

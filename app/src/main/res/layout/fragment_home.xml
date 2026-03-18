@@ -39,7 +39,7 @@
                             android:id="@+id/text_city_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Kolhapur"
+                            tools:text="Murtizapur"
                             android:textColor="@android:color/white"
                             android:textSize="22sp"
                             android:textStyle="bold"

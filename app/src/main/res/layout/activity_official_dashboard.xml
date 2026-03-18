@@ -36,6 +36,15 @@
         app:menu="@menu/official_bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/backgroundColor"
+        app:elevation="8dp"
+        app:itemBackground="@drawable/bottom_nav_selected_background"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/bottom_nav_item_selector"
+        app:itemPaddingTop="10dp"
+        app:itemPaddingBottom="10dp"
+        app:itemRippleColor="@color/black"
+        app:labelVisibilityMode="labeled"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

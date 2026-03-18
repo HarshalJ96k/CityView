@@ -58,7 +58,7 @@ public class AiAssistantFragment extends Fragment {
 
     // Location components
     private FusedLocationProviderClient fusedLocationClient;
-    private String currentUserCity = "Kolhapur"; // Default city
+    private String currentUserCity = "Murtizapur"; // Default city
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -142,7 +142,7 @@ public class AiAssistantFragment extends Fragment {
                                     if(currentUserCity != null){
                                         Toast.makeText(getContext(), "Location set to: " + currentUserCity, Toast.LENGTH_SHORT).show();
                                     } else {
-                                        currentUserCity = "Kolhapur"; // Fallback if locality is null
+                                        currentUserCity = "Murtizapur"; // Fallback if locality is null
                                     }
                                 }
                             } catch (IOException e) {

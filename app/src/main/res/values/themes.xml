@@ -15,6 +15,7 @@
         <!-- Your fix to remove the ripple effect globally -->
         <item name="android:colorControlHighlight">@android:color/transparent</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
     </style>
 
     <style name="Theme.CityView" parent="Base.Theme.CityView" />

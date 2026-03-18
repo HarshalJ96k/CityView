@@ -53,14 +53,14 @@ public class ContactSupportActivity extends AppCompatActivity {
         // Handle Website
         layoutWebsite.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://web.kolhapurcorporation.gov.in/"));
+            intent.setData(Uri.parse("https://www.gpmzr.ac.in/"));
             startActivity(intent);
         });
 
         // Handle Address on Map
         layoutAddress.setOnClickListener(v -> {
             // Use a geo URI to open the location in a map application
-            String mapUri = "geo:0,0?q=Kolhapur+Municipal+Corporation,+Shivaji+Chowk,+Kolhapur";
+            String mapUri = "geo:0,0?q=Murtizapur+Municipal+Corporation,+Shivaji+Chowk,+Murtizapur";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mapUri));
             intent.setPackage("com.google.android.apps.maps"); // Attempt to open in Google Maps directly
             if (intent.resolveActivity(getPackageManager()) != null) {
