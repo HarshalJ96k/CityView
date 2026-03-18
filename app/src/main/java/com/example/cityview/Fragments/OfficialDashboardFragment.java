@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,8 +24,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cityview.R;
-import com.example.cityview.Report;
-import com.example.cityview.ReportAdapter;
+import com.example.cityview.models.Report;
+import com.example.cityview.adapters.ReportAdapter;
 import com.example.cityview.urls.ApiUrls;
 
 import org.json.JSONArray;
@@ -167,3 +171,4 @@ public class OfficialDashboardFragment extends Fragment {
         requestQueue.add(request);
     }
 }
+

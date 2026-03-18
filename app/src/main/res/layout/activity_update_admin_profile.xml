@@ -6,7 +6,7 @@
     android:background="#F8FAFF"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".UpdateAdminProfileActivity">
+    tools:context=".activities.UpdateAdminProfileActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_update_admin"
@@ -135,3 +135,4 @@
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
+

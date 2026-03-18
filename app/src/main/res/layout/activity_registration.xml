@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:fitsSystemWindows="true"
-    tools:context=".RegistrationActivity">
+    tools:context=".activities.RegistrationActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -222,3 +222,4 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +21,10 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.cityview.LoginActivity;
+import com.example.cityview.activities.LoginActivity;
 import com.example.cityview.R;
-import com.example.cityview.SessionManager;
-import com.example.cityview.UpdateAdminProfileActivity;
+import com.example.cityview.utils.SessionManager;
+import com.example.cityview.activities.UpdateAdminProfileActivity;
 import com.example.cityview.urls.ApiUrls;
 
 import org.json.JSONObject;
@@ -143,3 +147,4 @@ public class AdminProfileFragment extends Fragment {
         loadProfile();
     }
 }
+

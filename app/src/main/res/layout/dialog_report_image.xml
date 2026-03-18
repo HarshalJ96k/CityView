@@ -12,3 +12,4 @@
         android:scaleType="fitCenter"
         android:background="@android:color/black"/>
 </FrameLayout>
+

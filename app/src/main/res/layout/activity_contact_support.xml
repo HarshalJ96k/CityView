@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F4F7FC"
-    tools:context=".ContactSupportActivity">
+    tools:context=".activities.ContactSupportActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_contact"
@@ -244,3 +244,4 @@
     </ScrollView>
 
 </LinearLayout>
+

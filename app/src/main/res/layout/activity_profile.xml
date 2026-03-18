@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#F8FAFF"
     android:fitsSystemWindows="true"
-    tools:context=".ProfileActivity">
+    tools:context=".activities.ProfileActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -331,4 +331,5 @@
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 

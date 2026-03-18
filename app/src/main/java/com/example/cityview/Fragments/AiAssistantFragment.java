@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -29,8 +33,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.cityview.ChatAdapter;
-import com.example.cityview.Message;
+import com.example.cityview.adapters.ChatAdapter;
+import com.example.cityview.models.Message;
 import com.example.cityview.R;
 import com.example.cityview.urls.ApiUrls;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -211,4 +215,5 @@ public class AiAssistantFragment extends Fragment {
     }
 
 }
+
 

@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -26,8 +30,8 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.cityview.Highlight;
-import com.example.cityview.HighlightAdapter;
+import com.example.cityview.models.Highlight;
+import com.example.cityview.adapters.HighlightAdapter;
 import com.example.cityview.R;
 import com.example.cityview.urls.ApiUrls;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -266,3 +270,4 @@ public class HomeFragment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
 }
+

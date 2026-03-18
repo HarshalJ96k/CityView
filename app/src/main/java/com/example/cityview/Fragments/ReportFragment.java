@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -27,8 +31,8 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.toolbox.Volley;
 import com.example.cityview.R;
-import com.example.cityview.SessionManager;
-import com.example.cityview.VolleyMultipartRequest;
+import com.example.cityview.utils.SessionManager;
+import com.example.cityview.utils.VolleyMultipartRequest;
 import com.example.cityview.urls.ApiUrls;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -296,3 +300,4 @@ public class ReportFragment extends Fragment {
         return bos.toByteArray();
     }
 }
+

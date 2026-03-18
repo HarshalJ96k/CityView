@@ -3,7 +3,7 @@ package com.example.cityview.urls;
 public class ApiUrls {
 
     // IMPORTANT: This is the only place you will need to change your IP address.
-    private static final String ROOT_URL = "http://192.168.1.123/cityview_api/";
+    private static final String ROOT_URL = "http://192.168.0.102/cityview_api/";
 
     public static final String URL_REGISTER = ROOT_URL + "register.php";
     public static final String URL_LOGIN = ROOT_URL + "login.php";

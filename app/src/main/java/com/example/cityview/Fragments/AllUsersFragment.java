@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +21,8 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cityview.R;
-import com.example.cityview.UserAdapter;
-import com.example.cityview.User;
+import com.example.cityview.adapters.UserAdapter;
+import com.example.cityview.models.User;
 import com.example.cityview.urls.ApiUrls;
 
 import org.json.JSONArray;
@@ -101,3 +105,4 @@ public class AllUsersFragment extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
 }
+

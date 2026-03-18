@@ -6,7 +6,7 @@
     android:background="#F8FAFF"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".EditProfileActivity">
+    tools:context=".activities.EditProfileActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -151,4 +151,5 @@
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
+
 

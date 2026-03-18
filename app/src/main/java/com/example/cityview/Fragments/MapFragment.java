@@ -1,4 +1,8 @@
 package com.example.cityview.Fragments;
+import com.example.cityview.activities.*;
+import com.example.cityview.adapters.*;
+import com.example.cityview.models.*;
+import com.example.cityview.utils.*;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -213,3 +217,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 }
+

@@ -31,10 +31,10 @@
 <!--            android:name=".EditAdminProfileActivity"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".UpdateAdminProfileActivity"
+            android:name=".activities.UpdateAdminProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".NotificationsActivity"
+            android:name=".activities.NotificationsActivity"
             android:exported="false" />
 
         <provider
@@ -48,35 +48,38 @@
         </provider> <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="<YOUR API KEY>" /> <!-- Your Activities -->
+            android:value="AIzaSyDXKrtmMVOvzYhO9YDMYIdILpIThd8WW3w" /> <!-- Your Activities -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".CitizenDashboardActivity"
+            android:name=".activities.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".OfficialDashboardActivity"
+            android:name=".activities.CitizenDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OfficialDashboardActivity"
             android:exported="false"
             />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activities.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ContactSupportActivity"
+            android:name=".activities.ContactSupportActivity"
             android:exported="false" />
     </application>
 
 </manifest>
+
